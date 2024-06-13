@@ -151,7 +151,7 @@ class Content implements Ressource
             $item = $doc->createElement('item');
             $item->setAttribute('id', $ressource["id"]);
             $item->setAttribute('href', $ressource["manifest"]);
-            $item->setAttribute('media-type', $ressource->getMediaType());
+            $item->setAttribute('media-type', $ressource["media-type"]);
             if($ressource->getProperties() != "")
             {
                 $item->setAttribute('properties', $ressource->getProperties());
