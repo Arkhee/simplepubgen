@@ -25,8 +25,8 @@ class Simplepubgen
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false)
+        array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false)
     );
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true),
@@ -191,6 +191,28 @@ class Simplepubgen
 
     private function prepareRessources()
     {
+        foreach(self::DYNAMIC_RESSOURCES_LIST as $ressource)
+        {
+            $property = $ressource["data"];
+            $curProperty = $this->$property;
+            if(!is_array($curProperty))
+            {
+                $curProperty = array($curProperty);
+            }
+            foreach($curProperty as $data)
+            {
+                $this->ressources[$ressource["path"].$data->getFileName()] =
+                array(
+                    "id" => $data->getRessourceId(),
+                    "content"=>$data->getRessourceContent(),
+                    "spine"=>$ressource["spine"],
+                    "path"=>$ressource["path"].$data->getFileName(),
+                    "media-type"=>$data->getMediaType(),
+                    "properties"=>$data->getProperties(),
+                    "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$data->getFileName()):null)
+                );
+            }
+        }
         foreach(self::STATIC_RESSOURCES_LIST as $ressource)
         {
             $class = $ressource["class"];
@@ -215,28 +237,7 @@ class Simplepubgen
                     "manifest"=>(($ressource["manifest"]!==false)?($ressource["manifest"].$ressource["file"]):null)
                 );
         }
-        foreach(self::DYNAMIC_RESSOURCES_LIST as $ressource)
-        {
-            $property = $ressource["data"];
-            $curProperty = $this->$property;
-            if(!is_array($curProperty))
-            {
-                $curProperty = array($curProperty);
-            }
-            foreach($curProperty as $data)
-            {
-                $this->ressources[$ressource["path"].$data->getFileName()] =
-                array(
-                    "id" => $data->getRessourceId(),
-                    "content"=>$data->getRessourceContent(),
-                    "spine"=>$ressource["spine"],
-                    "path"=>$ressource["path"].$data->getFileName(),
-                    "media-type"=>$data->getMediaType(),
-                    "properties"=>$data->getProperties(),
-                    "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$data->getFileName()):null)
-                );
-            }
-        }
+
     }
     private function createEpub($tmpFile)
     {
