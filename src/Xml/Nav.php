@@ -1,12 +1,15 @@
 <?php
 namespace Simplepubgen\Xml;
-
+use Simplepubgen\Simplepubgen;
 class Nav implements Ressource
 {
     /**
      * @var Chapter[] $chapters
      */
     private $chapters = array();
+    /**
+     * @var Simplepubgen $book
+     */
     private $book = null;
     public function __construct($book, array $chapters)
     {
@@ -103,7 +106,7 @@ class Nav implements Ressource
         $metaGenerator = $doc->createElement('meta');
         $metaGenerator->setAttribute('name', 'generator');
         $metaGenerator->setAttribute('content', 'pandoc');
-        $title = $doc->createElement('title', $this->book->getTitle());
+        $title = $doc->createElement('title', $this->book->getBookTitle());
         $link = $doc->createElement('link');
         $link->setAttribute('rel', 'stylesheet');
         $link->setAttribute('type', 'text/css');
@@ -123,7 +126,7 @@ class Nav implements Ressource
         $nav = $doc->createElement('nav');
         $nav->setAttribute('epub:type', 'toc');
         $nav->setAttribute('id', 'toc');
-        $h1 = $doc->createElement('h1', $this->book->getTitle());
+        $h1 = $doc->createElement('h1', $this->book->getBootTitle());
         $h1->setAttribute('id', 'toc-title');
         $ol = $doc->createElement('ol');
         $ol->setAttribute('class', 'toc');
