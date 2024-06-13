@@ -205,6 +205,7 @@ class Simplepubgen
     }
     private function createEpub($tmpFile)
     {
+        $this->prepareRessources();
         $zip = new \ZipArchive;
         if($zip -> open($tmpFile, \ZipArchive::CREATE ) === TRUE) {
             foreach($this->ressources as $path => $content)
