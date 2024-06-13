@@ -20,11 +20,11 @@ class Simplepubgen
     const LOCATION_CONTENT_IMAGE = "image/";
 
     const STATIC_RESSOURCES_LIST = array(
-        array("path" => "", "file"=>"mimetype", "class" => "Mimetype" , "manifest"=>"", "spine"=>false),
+        array("path" => "", "file"=>"mimetype", "class" => "Mimetype" , "manifest"=> false, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"cover.xhtml", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>self::LOCATION_CONTENT_ROOT, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>self::LOCATION_CONTENT_ROOT, "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false)
     );
@@ -212,7 +212,7 @@ class Simplepubgen
                     "path"=>$ressource["path"].$ressource["file"],
                     "media-type"=>$object->getMediaType(),
                     "properties"=>$object->getProperties(),
-                    "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$ressource["file"]):null)
+                    "manifest"=>(($ressource["manifest"]!==false)?($ressource["manifest"].$ressource["file"]):null)
                 );
         }
         foreach(self::DYNAMIC_RESSOURCES_LIST as $ressource)

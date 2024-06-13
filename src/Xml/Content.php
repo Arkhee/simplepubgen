@@ -188,7 +188,7 @@ class Content implements Ressource
         $guide = $doc->createElement('guide');
 
         $referenceToc = $doc->createElement('reference');
-        $referenceToc->setAttribute('type', 'toc');
+        $referenceToc->setAttribute('type', 'toc')  ;
         $referenceToc->setAttribute('title', "Table des matières");
         $referenceToc->setAttribute('href', 'nav.xhtml');
 
