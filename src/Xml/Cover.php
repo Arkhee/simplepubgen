@@ -12,11 +12,16 @@ class Cover implements Ressource
      * @var Simplepubgen $book
      */
     private $book = "";
-    public function __construct($book, string $imageFile)
+    public function __construct($book, $chapters)
     {
         $this->book = $book;
-        $this->imageFile = $imageFile;
+        //$this->imageFile = $imageFile;
         $this->id = uniqid("cover_");
+    }
+
+    public function setCoverImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
     }
 
 

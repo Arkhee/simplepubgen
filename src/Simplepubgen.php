@@ -92,7 +92,8 @@ class Simplepubgen
     {
         if(file_exists($imgFile) && is_readable($imgFile))
         {
-            $this->cover=new Cover($imgFile,$this->title);
+            $this->cover=new Cover($this, $this->chapters);
+            $this->cover->setCoverImageFile($imgFile);
             return true;
         }
         return false;
