@@ -1,11 +1,14 @@
 <?php
 namespace Simplepubgen\Xml;
-
+use Simplepubgen\Simplepubgen;
 class Chapter implements Ressource
 {
     private $title = "" ;
     private $content = "" ;
     private $id = "" ;
+    /**
+     * @var Simplepubgen $book
+     */
     private $book = null ;
     public function __construct($book,$title,$content)
     {
@@ -116,7 +119,7 @@ class Chapter implements Ressource
         $html = $doc->createElement('html');
         $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
         $html->setAttribute('xmlns:epub', 'http://www.idpf.org/2007/ops');
-        $html->setAttribute('xml:lang', $this->book->lang);
+        $html->setAttribute('xml:lang', $this->book->getLang());
 
         // Ajouter l'élément html à la document
         $doc->appendChild($html);
