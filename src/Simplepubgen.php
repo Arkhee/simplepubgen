@@ -209,6 +209,7 @@ class Simplepubgen
                     "spine"=>$ressource["spine"],
                     "path"=>$ressource["path"].$ressource["file"],
                     "media-type"=>$object->getMediaType(),
+                    "properties"=>$object->getProperties(),
                     "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$ressource["file"]):null)
                 );
         }
@@ -229,6 +230,7 @@ class Simplepubgen
                     "spine"=>$ressource["spine"],
                     "path"=>$ressource["path"].$data->getFileName(),
                     "media-type"=>$data->getMediaType(),
+                    "properties"=>$data->getProperties(),
                     "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$data->getFileName()):null)
                 );
             }

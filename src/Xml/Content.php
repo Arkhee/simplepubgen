@@ -152,9 +152,9 @@ class Content implements Ressource
             $item->setAttribute('id', $ressource["id"]);
             $item->setAttribute('href', $ressource["manifest"]);
             $item->setAttribute('media-type', $ressource["media-type"]);
-            if($ressource->getProperties() != "")
+            if(isset($ressource["properties"]) && !empty($ressource["properties"]))
             {
-                $item->setAttribute('properties', $ressource->getProperties());
+                $item->setAttribute('properties', $ressource["properties"]);
             }
             $manifest->appendChild($item);
         }
