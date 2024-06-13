@@ -7,9 +7,10 @@ class Content implements Ressource
     /**
      * @var Simplepubgen $book
      */
-    private $book = "";
+    private $book;
     public function __construct($book, $chapters)
     {
+        $this->book = $book;
     }
     /**
      * @return string
