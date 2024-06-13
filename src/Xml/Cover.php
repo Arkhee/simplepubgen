@@ -169,7 +169,7 @@ class Cover implements Ressource
         $svg->setAttribute('preserveAspectRatio', 'none');
         $image = $doc->createElement('image');
         $image->setAttribute('width', '1500');
-        //$image->setAttribute('height', '2250');
+        $image->setAttribute('height', '2250');
         $image->setAttribute('xlink:href', '../media/'.$this->getFileName());
 
         // Ajouter l'élément image à l'élément svg

@@ -79,7 +79,7 @@ class Toc implements Ressource
         $head = $doc->createElement('head');
         $metaUid = $doc->createElement('meta');
         $metaUid->setAttribute('name', 'dtb:uid');
-        $metaUid->setAttribute('content', 'urn:uuid:'.$this->book->getId());
+        $metaUid->setAttribute('content', /* 'urn:uuid:'. */ $this->book->getId());
         $metaDepth = $doc->createElement('meta');
         $metaDepth->setAttribute('name', 'dtb:depth');
         $metaDepth->setAttribute('content', '1');
