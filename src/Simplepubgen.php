@@ -192,6 +192,7 @@ class Simplepubgen
         foreach(self::STATIC_RESSOURCES_LIST as $ressource)
         {
             $class = $ressource["class"];
+            if(empty($class)) continue;
             if(!class_exists($class))
             {
                 $class = "Simplepubgen\\Xml\\".$class;
