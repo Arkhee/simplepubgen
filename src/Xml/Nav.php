@@ -126,7 +126,7 @@ class Nav implements Ressource
         $nav = $doc->createElement('nav');
         $nav->setAttribute('epub:type', 'toc');
         $nav->setAttribute('id', 'toc');
-        $h1 = $doc->createElement('h1', $this->book->getBootTitle());
+        $h1 = $doc->createElement('h1', $this->book->getBookTitle());
         $h1->setAttribute('id', 'toc-title');
         $ol = $doc->createElement('ol');
         $ol->setAttribute('class', 'toc');
