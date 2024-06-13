@@ -12,6 +12,7 @@ class Simplepubgen
 {
     const ASSET_STYLESHEET = "stylesheet.css";
     const ASSET_CONTENT = "content.xhtml";
+    const ASSET_CONTAINER = "container.xml";
     const LOCATION_CONTENT_META = "META-INF/";
     const LOCATION_CONTENT_ROOT = "OEBPS/";
     const LOCATION_CONTENT_TEXT = "text/";
@@ -24,7 +25,8 @@ class Simplepubgen
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false)
+        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false)
     );
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true),
