@@ -12,7 +12,7 @@ class Toc implements Ressource
      * @var Simplepubgen $book
      */
     private $book = "";
-    public function __construct(string $book, array $chapters)
+    public function __construct($book, $chapters)
     {
         $this->chapters = $chapters;
         $this->book = $book;
