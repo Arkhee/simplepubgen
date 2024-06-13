@@ -104,7 +104,7 @@ class Content implements Ressource
         $title = $doc->createElement('dc:title', $this->book->getBookTitle());
         $title->setAttribute('id', $this->book->getCode());
 
-        $identifier = $doc->createElement('dc:identifier', 'urn:uuid:'.$this->book->getId());
+        $identifier = $doc->createElement('dc:identifier', /* 'urn:uuid:'. */ $this->book->getId());
         $identifier->setAttribute('id', $this->book->getCode());
 
         $date = $doc->createElement('dc:date', date("Y-m-d").'T07:00:00+00:00');
