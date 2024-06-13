@@ -65,7 +65,7 @@ class Cover implements Ressource
     public function getFileName():string
     {
         $infoPath = pathinfo($this->imageFile);
-        $extension = $infoPath['extension'];
+        $extension = $infoPath['extension'] ?? "";
         $filename = $this->id.".".$extension;
         return $filename;
     }
