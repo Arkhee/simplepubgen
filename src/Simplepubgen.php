@@ -26,7 +26,7 @@ class Simplepubgen
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false)
+        array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false)
     );
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true),
