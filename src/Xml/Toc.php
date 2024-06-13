@@ -44,12 +44,12 @@ class Toc implements Ressource
 
     public function getId():string
     {
-        return "toc";
+        return "ncx";
     }
 
     public function getFileName(): string
     {
-        return "";
+        return "toc.ncx";
     }
 
     public function getRessourceContent(): string
