@@ -14,6 +14,11 @@
       "role": "Maintainer"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "Simplepubgen\\": "src/"
+    }
+  },
   "suggest": {
     "ext-dom": "Manage HTML Dom content",
     "ext-zip": "Use ZipArchive"
