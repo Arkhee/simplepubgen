@@ -98,7 +98,12 @@ class Cover implements Ressource
         $imp = new \DOMImplementation;
 
         // Creates a DOMDocumentType instance
-        $dtd = $imp->createDocumentType('html', '', '');
+            //$dtd = $imp->createDocumentType('html', '', '');
+            $dtd = $imp->createDocumentType(
+            'html', // Nom qualifié du document type
+            '-//W3C//DTD XHTML 1.1//EN', // Public identifier
+            'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
+        );
 
         $doc = $imp->createDocument("", "", $dtd);
         // Créer une nouvelle instance de DOMDocument
@@ -109,7 +114,8 @@ class Cover implements Ressource
 
         // Append le doctype à la document
         //$doc->appendChild($doctype);
-
+        // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+        //  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
         // Créer l'élément html avec les namespaces nécessaires
         $html = $doc->createElement('html');
         $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
