@@ -1,5 +1,5 @@
 <?php
-namespace Arkhee\Simplepubgen;
+namespace Simplepubgen;
 class Tools
 {
 

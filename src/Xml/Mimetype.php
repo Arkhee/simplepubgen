@@ -1,6 +1,6 @@
 <?php
-namespace Arkhee\Simplepubgen\Xml;
-use Arkhee\Simplepubgen\Simplepubgen;
+namespace Simplepubgen\Xml;
+use Simplepubgen\Simplepubgen;
 class Mimetype implements Ressource
 {
     public function __construct($book, $chapters)

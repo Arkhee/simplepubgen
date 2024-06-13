@@ -1,5 +1,5 @@
 <?php
-namespace Arkhee\Simplepubgen\Xml;
+namespace Simplepubgen\Xml;
 
 class Chapter implements Ressource
 {

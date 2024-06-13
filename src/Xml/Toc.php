@@ -1,7 +1,7 @@
 <?php
-namespace Arkhee\Simplepubgen\Xml;
-use Arkhee\Simplepubgen\Simplepubgen;
-use Arkhee\Simplepubgen\Xml\Chapter;
+namespace Simplepubgen\Xml;
+use Simplepubgen\Simplepubgen;
+use Simplepubgen\Xml\Chapter;
 class Toc implements Ressource
 {
     /**

@@ -1,7 +1,7 @@
 <?php
-namespace Arkhee\Simplepubgen\Xml;
+namespace Simplepubgen\Xml;
 
-use Arkhee\Simplepubgen\Simplepubgen;
+use Simplepubgen\Simplepubgen;
 
 class Cover implements Ressource
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Arkhee\Simplepubgen\Xml;
+namespace Simplepubgen\Xml;
 interface Ressource
 {
     public function getContent():string;

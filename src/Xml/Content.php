@@ -1,6 +1,6 @@
 <?php
-namespace Arkhee\Simplepubgen\Xml;
-use Arkhee\Simplepubgen\Simplepubgen;
+namespace Simplepubgen\Xml;
+use Simplepubgen\Simplepubgen;
 
 class Content implements Ressource
 {

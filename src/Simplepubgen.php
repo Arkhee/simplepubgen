@@ -1,12 +1,12 @@
 <?php
-namespace Arkhee\Simplepubgen;
-use Arkhee\Simplepubgen\Tools;
-use Arkhee\Simplepubgen\Xml\Chapter;
-use Arkhee\Simplepubgen\Xml\Cover;
-use Arkhee\Simplepubgen\Xml\Toc;
-use Arkhee\Simplepubgen\Xml\Nav;
-use Arkhee\Simplepubgen\Xml\Mimetype;
-use Arkhee\Simplepubgen\Xml\Content;
+namespace Simplepubgen;
+use Simplepubgen\Tools;
+use Simplepubgen\Xml\Chapter;
+use Simplepubgen\Xml\Cover;
+use Simplepubgen\Xml\Toc;
+use Simplepubgen\Xml\Nav;
+use Simplepubgen\Xml\Mimetype;
+use Simplepubgen\Xml\Content;
 
 class Simplepubgen
 {
