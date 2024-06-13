@@ -164,7 +164,7 @@ class Content implements Ressource
 
         // Créer l'élément spine et ses enfants
         $spine = $doc->createElement('spine');
-        $spine->setAttribute('toc', 'toc');
+        $spine->setAttribute('toc', 'ncx');
 
         foreach($ressources as $id => $ressource)
         {

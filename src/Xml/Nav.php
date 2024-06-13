@@ -28,7 +28,8 @@ class Nav implements Ressource
      */
     public function getProperties():string
     {
-        return "nav";
+        //return "nav";
+        return "";
     }
     /**
      * @return string
