@@ -126,8 +126,8 @@ class Content implements Ressource
         $metaCover->setAttribute('name', 'cover');
         $metaCover->setAttribute('content', $this->book->getCover()->getId());
 
-        $metaModified = $doc->createElement('meta', date("Y-m-d").'T'.date("H:i:s").'Z');
-        $metaModified->setAttribute('property', 'dcterms:modified');
+        //$metaModified = $doc->createElement('meta', date("Y-m-d").'T'.date("H:i:s").'Z');
+        //$metaModified->setAttribute('property', 'dcterms:modified');
 
         // Ajouter les éléments au metadata
         $metadata->appendChild($title);
@@ -137,7 +137,7 @@ class Content implements Ressource
         //$metadata->appendChild($creator);
         //$metadata->appendChild($metaRole);
         $metadata->appendChild($metaCover);
-        $metadata->appendChild($metaModified);
+        //$metadata->appendChild($metaModified);
 
         // Ajouter l'élément metadata à l'élément package
         $package->appendChild($metadata);
