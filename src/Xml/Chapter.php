@@ -106,7 +106,8 @@ class Chapter implements Ressource
         $dtd = $imp->createDocumentType('html', '', '');
 
         $doc = $imp->createDocument("", "", $dtd);
-
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
 //        $doc = new \DOMDocument('1.0', 'UTF-8');
 
         // Créer l'élément DOCTYPE

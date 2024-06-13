@@ -86,7 +86,8 @@ class Nav implements Ressource
          */
         // Creates an instance of the DOMImplementation class
         $imp = new \DOMImplementation;
-
+        $imp->preserveWhiteSpace = false;
+        $imp->formatOutput = true;
         // Creates a DOMDocumentType instance
         $dtd = $imp->createDocumentType('html', '', '');
         $doc = $imp->createDocument("", "", $dtd);

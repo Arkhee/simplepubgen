@@ -65,7 +65,8 @@ class Toc implements Ressource
     public function getContent():string
     {
         $doc = new \DOMDocument('1.0', 'UTF-8');
-
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
         // Créer l'élément racine ncx avec les attributs nécessaires
         $ncx = $doc->createElement('ncx');
         $ncx->setAttribute('version', '2005-1');

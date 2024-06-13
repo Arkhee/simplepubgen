@@ -85,7 +85,8 @@ class Content implements Ressource
         */
         // Créer une nouvelle instance de DOMDocument
         $doc = new \DOMDocument('1.0', 'UTF-8');
-
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
         // Créer l'élément racine package avec les attributs nécessaires
         $package = $doc->createElement('package');
         $package->setAttribute('version', '2.0');
@@ -102,7 +103,7 @@ class Content implements Ressource
 
         // Créer les éléments enfants du metadata
         $title = $doc->createElement('dc:title', $this->book->getBookTitle());
-        $title->setAttribute('id', $this->book->getCode());
+        //$title->setAttribute('id', $this->book->getCode());
 
         $identifier = $doc->createElement('dc:identifier', /* 'urn:uuid:'. */ $this->book->getId());
         $identifier->setAttribute('id', $this->book->getCode());
@@ -148,6 +149,10 @@ class Content implements Ressource
         $ressources = $this->book->getRessources();
         foreach($ressources as $id => $ressource)
         {
+            if(!isset($ressource["manifest"]) || empty($ressource["manifest"]))
+            {
+                continue;
+            }
             $item = $doc->createElement('item');
             $item->setAttribute('id', $ressource["id"]);
             $item->setAttribute('href', $ressource["manifest"]);
