@@ -33,12 +33,13 @@ class Simplepubgen
     /**
      * @var Cover $cover
      */
-    private $cover="";
+    private $cover = null;
     private $title="";
     private $id = "";
     private $lang = "";
     private $code = "";
     private $ressources = [];
+    private $coverTmpFile = "";
     /**
      * @var Chapter[] $chapters
      */
@@ -49,6 +50,15 @@ class Simplepubgen
         $this->id = "book_" . md5($title);
         $this->code = Tools::Text2Code($title);
         $this->lang = $lang;
+        $this->cover=new Cover($this, $this->chapters);
+    }
+
+    public function __destruct()
+    {
+        if(file_exists($this->coverTmpFile))
+        {
+            unlink($this->coverTmpFile);
+        }
     }
 
     /**
@@ -89,9 +99,19 @@ class Simplepubgen
      */
     public function setCover(string $imgFile):bool
     {
+        if(!file_exists($imgFile) && !empty($imgFile))
+        {
+            $pathinfo = pathinfo($imgFile);
+            if(isset($pathinfo["extension"]))
+            {
+                $tmpFile = sys_get_temp_dir()."/".uniqid("cover_").".".$pathinfo["extension"];
+                file_put_contents($tmpFile,file_get_contents($imgFile));
+                $imgFile = $tmpFile;
+                $this->coverTmpFile = $imgFile;
+            }
+        }
         if(file_exists($imgFile) && is_readable($imgFile))
         {
-            $this->cover=new Cover($this, $this->chapters);
             $this->cover->setCoverImageFile($imgFile);
             return true;
         }
