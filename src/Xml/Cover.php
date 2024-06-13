@@ -99,13 +99,15 @@ class Cover implements Ressource
 
         // Creates a DOMDocumentType instance
             //$dtd = $imp->createDocumentType('html', '', '');
-            $dtd = $imp->createDocumentType(
-            'html', // Nom qualifié du document type
-            '-//W3C//DTD XHTML 1.1//EN', // Public identifier
-            'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
+        $dtd = $imp->createDocumentType(
+        'html', // Nom qualifié du document type
+        '-//W3C//DTD XHTML 1.1//EN', // Public identifier
+        'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
         );
 
         $doc = $imp->createDocument("", "", $dtd);
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
         // Créer une nouvelle instance de DOMDocument
         //$dom = new \DOMDocument('1.0', 'UTF-8');
 
@@ -154,7 +156,7 @@ class Cover implements Ressource
         $divCoverImage->setAttribute('id', $this->id);
         $h1 = $doc->createElement('h1', $this->book->getBookTitle());
         $h1->setAttribute('class', 'unnumbered');
-        $h1->setAttribute('data-number', '');
+        //$h1->setAttribute('data-number', '');
         $pCoverImage = $doc->createElement('p');
         $pCoverImage->setAttribute('class', 'cover-image');
 

@@ -86,12 +86,16 @@ class Nav implements Ressource
          */
         // Creates an instance of the DOMImplementation class
         $imp = new \DOMImplementation;
-        $imp->preserveWhiteSpace = false;
-        $imp->formatOutput = true;
         // Creates a DOMDocumentType instance
-        $dtd = $imp->createDocumentType('html', '', '');
+        $dtd = $imp->createDocumentType(
+            'html', // Nom qualifié du document type
+            '-//W3C//DTD XHTML 1.1//EN', // Public identifier
+            'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
+        );
+        //$dtd = $imp->createDocumentType('html', '', '');
         $doc = $imp->createDocument("", "", $dtd);
-
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
         // Créer l'élément html avec les namespaces nécessaires
         $html = $doc->createElement('html');
         $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
@@ -103,8 +107,8 @@ class Nav implements Ressource
 
         // Créer l'élément head et ses enfants
         $head = $doc->createElement('head');
-        $metaCharset = $doc->createElement('meta');
-        $metaCharset->setAttribute('charset', 'utf-8');
+        //$metaCharset = $doc->createElement('meta');
+        //$metaCharset->setAttribute('charset', 'utf-8');
         $metaGenerator = $doc->createElement('meta');
         $metaGenerator->setAttribute('name', 'generator');
         $metaGenerator->setAttribute('content', 'pandoc');
@@ -115,7 +119,7 @@ class Nav implements Ressource
         $link->setAttribute('href', '../styles/stylesheet.css');
 
         // Ajouter les éléments au head
-        $head->appendChild($metaCharset);
+        //$head->appendChild($metaCharset);
         $head->appendChild($metaGenerator);
         $head->appendChild($title);
         $head->appendChild($link);
