@@ -103,8 +103,12 @@ class Chapter implements Ressource
         $imp = new \DOMImplementation;
 
         // Creates a DOMDocumentType instance
-        $dtd = $imp->createDocumentType('html', '', '');
-
+        //$dtd = $imp->createDocumentType('html', '', '');
+        $dtd = $imp->createDocumentType(
+            'html', // Nom qualifié du document type
+            '-//W3C//DTD XHTML 1.1//EN', // Public identifier
+            'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
+        );
         $doc = $imp->createDocument("", "", $dtd);
         $doc->preserveWhiteSpace = false;
         $doc->formatOutput = true;
@@ -127,8 +131,8 @@ class Chapter implements Ressource
 
         // Créer l'élément head et ses enfants
         $head = $doc->createElement('head');
-        $metaCharset = $doc->createElement('meta');
-        $metaCharset->setAttribute('charset', 'utf-8');
+        //$metaCharset = $doc->createElement('meta');
+        //$metaCharset->setAttribute('charset', 'utf-8');
         $metaGenerator = $doc->createElement('meta');
         $metaGenerator->setAttribute('name', 'generator');
         $metaGenerator->setAttribute('content', 'pandoc');
@@ -136,10 +140,10 @@ class Chapter implements Ressource
         $link = $doc->createElement('link');
         $link->setAttribute('rel', 'stylesheet');
         $link->setAttribute('type', 'text/css');
-        $link->setAttribute('href', '../'.$this->book->getCssRelativePath());
+        $link->setAttribute('href', $this->book::LOCATION_CONTENT_CSS.$this->book::ASSET_STYLESHEET);
 
         // Ajouter les éléments au head
-        $head->appendChild($metaCharset);
+        //$head->appendChild($metaCharset);
         $head->appendChild($metaGenerator);
         $head->appendChild($title);
         $head->appendChild($link);
@@ -149,7 +153,7 @@ class Chapter implements Ressource
 
         // Créer l'élément body et ses enfants
         $body = $doc->createElement('body');
-        $body->setAttribute('epub:type', 'bodymatter');
+        //$body->setAttribute('epub:type', 'bodymatter');
         $section = $doc->createElement('section');
         $section->setAttribute('id', $this->id);
         $section->setAttribute('class', 'level2');
