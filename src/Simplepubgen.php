@@ -172,6 +172,14 @@ class Simplepubgen
         foreach(self::STATIC_RESSOURCES_LIST as $ressource)
         {
             $class = $ressource["class"];
+            if(!class_exists($class))
+            {
+                $class = "Simplepubgen\\Xml\\".$class;
+                if(!class_exists($class))
+                {
+                    continue;
+                }
+            }
             $object = new $class($this, $this->chapters);
             $this->ressources[$ressource["path"].$ressource["file"]] =
                 array(
