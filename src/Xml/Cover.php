@@ -129,8 +129,8 @@ class Cover implements Ressource
 
         // Créer l'élément head et ses enfants
         $head = $doc->createElement('head');
-        $metaCharset = $doc->createElement('meta');
-        $metaCharset->setAttribute('charset', 'utf-8');
+        //$metaCharset = $doc->createElement('meta');
+        //$metaCharset->setAttribute('charset', 'utf-8');
         $metaGenerator = $doc->createElement('meta');
         $metaGenerator->setAttribute('name', 'generator');
         $metaGenerator->setAttribute('content', 'pandoc');
@@ -141,7 +141,7 @@ class Cover implements Ressource
         $link->setAttribute('href', '../'.$this->book->getCssRelativePath());
 
         // Ajouter les éléments au head
-        $head->appendChild($metaCharset);
+        //$head->appendChild($metaCharset);
         $head->appendChild($metaGenerator);
         $head->appendChild($title);
         $head->appendChild($link);

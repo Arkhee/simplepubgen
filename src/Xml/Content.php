@@ -149,7 +149,7 @@ class Content implements Ressource
         $ressources = $this->book->getRessources();
         foreach($ressources as $id => $ressource)
         {
-            if(!isset($ressource["manifest"]) || empty($ressource["manifest"]))
+            if(!isset($ressource["manifest"]) || ($ressource["manifest"])===false)
             {
                 continue;
             }
