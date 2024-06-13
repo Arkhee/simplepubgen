@@ -243,7 +243,7 @@ class Simplepubgen
         if($zip -> open($tmpFile, \ZipArchive::CREATE ) === TRUE) {
             foreach($this->ressources as $path => $content)
             {
-                $zip->addFromString($path,$content);
+                $zip->addFromString($path,$content["content"]);
             }
             /*
             $zip->addFromString("mimetype","application/epub+zip");
