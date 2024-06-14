@@ -7,6 +7,7 @@ use Simplepubgen\Tools;
 class CoverImage implements Ressource
 {
     private $imageFile = "";
+    private $imageFileName = "";
     private $id = "";
     private $lang = "";
     /**
@@ -65,11 +66,20 @@ class CoverImage implements Ressource
      */
     public function getFileName():string
     {
-        $infoPath = pathinfo($this->imageFile);
-        $extension = $infoPath['extension'] ?? "";
-        $filename = $this->id.".".$extension;
-        return $filename;
+        if(empty($this->imageFileName))
+        {
+            $infoPath = pathinfo($this->imageFile);
+            $extension = $infoPath['extension'] ?? "";
+            $this->imageFileName = $this->id.".".$extension;
+        }
+        return $this->imageFileName;
     }
+
+    public function setFileName($name)
+    {
+        $this->imageFileName = $name;
+    }
+
     public function getContent():string
     {
         /*

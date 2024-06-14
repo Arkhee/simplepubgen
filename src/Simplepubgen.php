@@ -31,10 +31,11 @@ class Simplepubgen
     );
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "coverimage", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>"auto")
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>"auto"),
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "externalResources", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>"")
     );
     /**
-     * @var Cover $cover
+     * @var CoverImage $coverimage
      */
     private $coverimage = null;
     private $title="";
@@ -47,6 +48,11 @@ class Simplepubgen
      * @var Chapter[] $chapters
      */
     private $chapters=array();
+
+    /**
+     * @var CoverImage[] $externalResources
+     */
+    private $externalResources = array();
     public function __construct($title,$lang="en-US")
     {
         $this->title = $title;
@@ -167,6 +173,13 @@ class Simplepubgen
         $this->chapters[] = new Chapter($this,$title,$content);
     }
 
+
+    public function addResource(string $name, string $url)
+    {
+        $cover = new CoverImage($this,$this->chapters);
+        $cover->setCoverImageFile($url);
+        $cover->setFileName($name);
+    }
 
     /**
      * @return string
