@@ -1,7 +1,7 @@
 {
   "name": "arkhee/simplepubgen",
   "description": "Simple EPub Generator for PHP websites based on html content",
-  "license" : "GPL-3.0 license",
+  "license" : "GPL-3.0-or-later",
   "homepage": "https://github.com/Arkhee/SimplePubGen",
   "require": {
     "php": "^7.1 || ^8"
