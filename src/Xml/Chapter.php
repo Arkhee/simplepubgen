@@ -166,11 +166,11 @@ class Chapter implements Ressource
         $this->content = Tools::CleanHtml($this->content);
         $tpl->loadHtml($this->content);
 
-        $body = $tpl->getElementsByTagName('body')->item(0);
-        if ($body !== null) {
+        $insideBody = $tpl->getElementsByTagName('body')->item(0);
+        if ($insideBody !== null) {
 
             // Importer le contenu du body dans le nouveau document
-            foreach ($body->childNodes as $child) {
+            foreach ($insideBody->childNodes as $child) {
                 $importedNode = $doc->importNode($child, true);
                 $div->appendChild($importedNode);
             }
