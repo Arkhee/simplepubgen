@@ -173,7 +173,7 @@ class Cover implements Ressource
         $image = $doc->createElement('image');
         $image->setAttribute('width', '1500');
         $image->setAttribute('height', '2250');
-        $image->setAttribute('xlink:href', '../image/'.$this->getFileName());
+        $image->setAttribute('xlink:href', '../image/'.$this->book->getCover()->getFileName());
 
         // Ajouter l'élément image à l'élément svg
         $svg->appendChild($image);
