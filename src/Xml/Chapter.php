@@ -141,7 +141,7 @@ class Chapter implements Ressource
         $link = $doc->createElement('link');
         $link->setAttribute('rel', 'stylesheet');
         $link->setAttribute('type', 'text/css');
-        $link->setAttribute('href', $this->book::LOCATION_CONTENT_CSS.$this->book::ASSET_STYLESHEET);
+        $link->setAttribute('href', "../".$this->book::LOCATION_CONTENT_CSS.$this->book::ASSET_STYLESHEET);
 
         // Ajouter les éléments au head
         //$head->appendChild($metaCharset);
