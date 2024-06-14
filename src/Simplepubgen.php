@@ -7,6 +7,7 @@ use Simplepubgen\Xml\Toc;
 use Simplepubgen\Xml\Nav;
 use Simplepubgen\Xml\Mimetype;
 use Simplepubgen\Xml\Content;
+use Simplepubgen\Xml\CoverImage;
 
 class Simplepubgen
 {
@@ -29,13 +30,13 @@ class Simplepubgen
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false)
     );
     const DYNAMIC_RESSOURCES_LIST = array(
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "cover", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "coverimage", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>2)
     );
     /**
      * @var Cover $cover
      */
-    private $cover = null;
+    private $coverimage = null;
     private $title="";
     private $id = "";
     private $lang = "";
@@ -52,7 +53,7 @@ class Simplepubgen
         $this->id = "book_" . md5($title);
         $this->code = Tools::Text2Code($title);
         $this->lang = $lang;
-        $this->cover=new Cover($this, $this->chapters);
+        $this->coverimage=new CoverImage($this, $this->chapters);
     }
 
     public function __destruct()
@@ -92,7 +93,7 @@ class Simplepubgen
      */
     public function getCover():Cover
     {
-        return $this->cover;
+        return $this->coverimage;
     }
 
     /**
@@ -114,7 +115,7 @@ class Simplepubgen
         }
         if(file_exists($imgFile) && is_readable($imgFile))
         {
-            $this->cover->setCoverImageFile($imgFile);
+            $this->coverimage->setCoverImageFile($imgFile);
             return true;
         }
         return false;
