@@ -129,8 +129,8 @@ class Nav implements Ressource
 
         // Créer l'élément body et ses enfants
         $body = $doc->createElement('body');
-        $nav = $doc->createElement('nav');
-        $nav->setAttribute('epub:type', 'toc');
+        $nav = $doc->createElement('div');
+        //$nav->setAttribute('epub:type', 'toc');
         $nav->setAttribute('id', 'toc');
         $h1 = $doc->createElement('h1', $this->book->getBookTitle());
         $h1->setAttribute('id', 'toc-title');
