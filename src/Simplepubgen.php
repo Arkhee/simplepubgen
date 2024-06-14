@@ -179,6 +179,7 @@ class Simplepubgen
         $cover = new CoverImage($this,$this->chapters);
         $cover->setCoverImageFile($url);
         $cover->setFileName($name);
+        $this->externalResources[]=$cover;
     }
 
     /**
