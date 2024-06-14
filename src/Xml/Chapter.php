@@ -165,7 +165,7 @@ class Chapter implements Ressource
         $tpl = new \DOMDocument;
         $this->content = Tools::CleanHtml($this->content);
         $tpl->loadHtml($this->content);
-        $div->appendChild($doc->importNode($tpl->documentElement, TRUE));
+        $div->appendChild($doc->importNode($tpl->getElementsByTagName('body')->item(0), TRUE));
         libxml_use_internal_errors(false);
 
         $div->setAttribute('class', 'entry-content');
