@@ -158,7 +158,13 @@ class Chapter implements Ressource
         $section->setAttribute('id', $this->id);
         $section->setAttribute('class', 'level2');
         $h2 = $doc->createElement('h2', $this->title);
-        $div = $doc->createElement('div', $this->content);
+        $div = $doc->createElement('div');
+
+        $fragment = $doc->createDocumentFragment();
+        $fragment->appendXML($this->content);
+        // Ajouter le fragment à l'élément body
+        $div->appendChild($fragment);
+
         $div->setAttribute('class', 'entry-content');
 
         // Ajouter les éléments au body
