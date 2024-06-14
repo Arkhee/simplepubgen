@@ -10,13 +10,14 @@ class Tools
      */
     public static function CleanHTML(string $html):string
     {
-        $html = str_replace("“",'"',$html);
-        $html = str_replace("”",'"',$html);
-        $html = str_replace("’","'",$html);
-        $html = str_replace("—","-",$html);
-        $html = str_replace("…","...",$html);
-        $html = str_replace("–","-",$html);
-        $html = str_replace("•","-",$html);
+        $html = str_replace("“", '&ldquo;', $html);
+        $html = str_replace("”", '&rdquo;', $html);
+        $html = str_replace("’", '&rsquo;', $html);
+        $html = str_replace("‘", '&lsquo;', $html);
+        $html = str_replace("—", '&mdash;', $html);
+        $html = str_replace("…", '&hellip;', $html);
+        $html = str_replace("–", '&ndash;', $html);
+        $html = str_replace("•", '&bull;', $html);
         return $html;
     }
 
