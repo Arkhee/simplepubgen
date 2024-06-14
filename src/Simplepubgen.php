@@ -21,7 +21,7 @@ class Simplepubgen
 
     const STATIC_RESSOURCES_LIST = array(
         array("path" => "", "file"=>"mimetype", "class" => "Mimetype" , "manifest"=> false, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"cover.xhtml", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true),
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"cover.xhtml", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>1),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
@@ -30,7 +30,7 @@ class Simplepubgen
     );
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "cover", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true)
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>2)
     );
     /**
      * @var Cover $cover

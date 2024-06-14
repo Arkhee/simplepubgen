@@ -171,14 +171,19 @@ class Content implements Ressource
         $spine = $doc->createElement('spine');
         $spine->setAttribute('toc', 'ncx');
 
+        $spineRessources = array();
         foreach($ressources as $id => $ressource)
         {
             if($ressource["spine"])
             {
-                $itemrefCh001 = $doc->createElement('itemref');
-                $itemrefCh001->setAttribute('idref', $ressource["id"]);
-                $spine->appendChild($itemrefCh001);
+                $spineRessources[$ressource["spine"]] = $ressource;
             }
+        }
+        ksort($spineRessources);
+        foreach($spineRessources as $id => $ressource) {
+            $itemrefCh001 = $doc->createElement('itemref');
+            $itemrefCh001->setAttribute('idref', $ressource["id"]);
+            $spine->appendChild($itemrefCh001);
         }
 
         // Ajouter l'élément spine à l'élément package
