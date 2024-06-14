@@ -22,7 +22,7 @@ class Simplepubgen
 
     const STATIC_RESSOURCES_LIST = array(
         array("path" => "", "file"=>"mimetype", "class" => "Mimetype" , "manifest"=> false, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"cover.xhtml", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>1),
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"cover.xhtml", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>-1),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
@@ -31,7 +31,7 @@ class Simplepubgen
     );
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "coverimage", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>2)
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>"auto")
     );
     /**
      * @var Cover $cover
@@ -200,6 +200,7 @@ class Simplepubgen
 
     private function prepareRessources()
     {
+        $spineIndex = 1;
         foreach(self::DYNAMIC_RESSOURCES_LIST as $ressource)
         {
             $property = $ressource["data"];
@@ -210,11 +211,19 @@ class Simplepubgen
             }
             foreach($curProperty as $data)
             {
+                if($ressource["spine"]=="auto")
+                {
+                    $currentSprineIndex = $spineIndex++;
+                }
+                else
+                {
+                    $currentSprineIndex = $ressource["spine"];
+                }
                 $this->ressources[$ressource["path"].$data->getFileName()] =
                 array(
                     "id" => $data->getRessourceId(),
                     "content"=>$data->getRessourceContent(),
-                    "spine"=>$ressource["spine"],
+                    "spine"=>$currentSprineIndex,
                     "path"=>$ressource["path"].$data->getFileName(),
                     "media-type"=>$data->getMediaType($data->getFileName()),
                     "properties"=>$data->getProperties(),
@@ -224,6 +233,14 @@ class Simplepubgen
         }
         foreach(self::STATIC_RESSOURCES_LIST as $ressource)
         {
+            if($ressource["spine"]=="auto")
+            {
+                $currentSprineIndex = $spineIndex++;
+            }
+            else
+            {
+                $currentSprineIndex = $ressource["spine"];
+            }
             $class = $ressource["class"];
             if(empty($class)) continue;
             if(!class_exists($class))
@@ -239,7 +256,7 @@ class Simplepubgen
                 array(
                     "id" => $object->getId(),
                     "content"=>$object->getContent(),
-                    "spine"=>$ressource["spine"],
+                    "spine"=>$currentSprineIndex,
                     "path"=>$ressource["path"].$ressource["file"],
                     "media-type"=>$object->getMediaType(),
                     "properties"=>$object->getProperties(),
