@@ -91,7 +91,7 @@ class Simplepubgen
     /**
      * @return Cover
      */
-    public function getCover():Cover
+    public function getCover():CoverImage
     {
         return $this->coverimage;
     }
