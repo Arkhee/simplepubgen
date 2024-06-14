@@ -25,12 +25,12 @@ class Simplepubgen
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>"", "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>false, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false)
     );
     const DYNAMIC_RESSOURCES_LIST = array(
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "cover", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false)
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "cover", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>true)
     );
     /**
      * @var Cover $cover
@@ -207,7 +207,7 @@ class Simplepubgen
                     "content"=>$data->getRessourceContent(),
                     "spine"=>$ressource["spine"],
                     "path"=>$ressource["path"].$data->getFileName(),
-                    "media-type"=>$data->getMediaType(),
+                    "media-type"=>$data->getMediaType($data->getFileName()),
                     "properties"=>$data->getProperties(),
                     "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$data->getFileName()):null)
                 );

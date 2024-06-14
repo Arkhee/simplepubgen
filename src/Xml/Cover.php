@@ -2,6 +2,7 @@
 namespace Simplepubgen\Xml;
 
 use Simplepubgen\Simplepubgen;
+use Simplepubgen\Tools;
 
 class Cover implements Ressource
 {
@@ -30,11 +31,11 @@ class Cover implements Ressource
      */
     public function getRessourceId():string
     {
-        return $this->getId() ;
+        return $this->id ;
     }
 
 
-    public function getId():string
+    public function getId($file=""):string
     {
         return "cover";
     }
@@ -48,9 +49,9 @@ class Cover implements Ressource
     }
 
 
-    public function getMediaType():string
+    public function getMediaType($file = ""):string
     {
-        return "application/xhtml+xml";
+        return (empty($file)?"application/xhtml+xml":Tools::DL_Content_type($file));
     }
 
     public function getRessourceContent():string
@@ -172,7 +173,7 @@ class Cover implements Ressource
         $image = $doc->createElement('image');
         $image->setAttribute('width', '1500');
         $image->setAttribute('height', '2250');
-        $image->setAttribute('xlink:href', '../media/'.$this->getFileName());
+        $image->setAttribute('xlink:href', '../image/'.$this->getFileName());
 
         // Ajouter l'élément image à l'élément svg
         $svg->appendChild($image);
