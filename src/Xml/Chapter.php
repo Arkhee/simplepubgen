@@ -1,6 +1,7 @@
 <?php
 namespace Simplepubgen\Xml;
 use Simplepubgen\Simplepubgen;
+use Simplepubgen\Tools;
 class Chapter implements Ressource
 {
     private $title = "" ;
@@ -162,6 +163,7 @@ class Chapter implements Ressource
 
         libxml_use_internal_errors(true);
         $tpl = new \DOMDocument;
+        $this->content = Tools::CleanHtml($this->content);
         $tpl->loadHtml($this->content);
         $div->appendChild($doc->importNode($tpl->documentElement, TRUE));
         libxml_use_internal_errors(false);

@@ -3,6 +3,23 @@ namespace Simplepubgen;
 class Tools
 {
 
+    /**
+     * @param string $text
+     * @return string
+     * Returns text without weird accents or characters
+     */
+    public static function CleanHTML(string $html):string
+    {
+        $html = str_replace("“",'"',$html);
+        $html = str_replace("”",'"',$html);
+        $html = str_replace("’","'",$html);
+        $html = str_replace("—","-",$html);
+        $html = str_replace("…","...",$html);
+        $html = str_replace("–","-",$html);
+        $html = str_replace("•","-",$html);
+        return $html;
+    }
+
 
     /**
      * @param string $text
