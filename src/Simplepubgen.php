@@ -126,8 +126,16 @@ class Simplepubgen
      * @param string $destFile
      * @return bool
      */
-    public function generateEpub(string $outputFile, string $destFile=""):bool
+    public function generateEpub(string $outputFile="", string $destFile=""):bool
     {
+        if(empty($outputFile))
+        {
+            $outputFile = Tools::Text2Code($this->title).".epub";
+            if(empty($outputFile))
+            {
+                $outputFile = "book.epub";
+            }
+        }
         $tmpFile = sys_get_temp_dir()."/".uniqid("epub_").".epub";
         $this->createEpub($tmpFile);
         if(!empty($destFile))
