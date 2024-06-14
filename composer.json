@@ -21,7 +21,8 @@
   },
   "suggest": {
     "ext-dom": "Manage HTML Dom content",
-    "ext-zip": "Use ZipArchive"
+    "ext-zip": "Use ZipArchive",
+    "ext-libxml": "Use LIBXML"
   },
   "archive": {
     "exclude": [

@@ -160,10 +160,11 @@ class Chapter implements Ressource
         $h2 = $doc->createElement('h2', $this->title);
         $div = $doc->createElement('div');
 
-        $fragment = $doc->createDocumentFragment();
-        $fragment->appendXML($this->content);
-        // Ajouter le fragment à l'élément body
-        $div->appendChild($fragment);
+        libxml_use_internal_errors(true);
+        $tpl = new \DOMDocument;
+        $tpl->loadHtml($this->content);
+        $div->appendChild($doc->importNode($tpl->documentElement, TRUE));
+        libxml_use_internal_errors(false);
 
         $div->setAttribute('class', 'entry-content');
 
