@@ -164,17 +164,17 @@ class Content implements Resource
         // Créer l'élément manifest et ses enfants
         $manifest = $doc->createElement('manifest');
 
-        $ressources = $this->book->getRessources();
-        foreach ($ressources as $id => $ressource) {
-            if (!isset($ressource["manifest"]) || ($ressource["manifest"]) === false) {
+        $resources = $this->book->getResources();
+        foreach ($resources as $id => $resource) {
+            if (!isset($resource["manifest"]) || ($resource["manifest"]) === false) {
                 continue;
             }
             $item = $doc->createElement('item');
-            $item->setAttribute('id', $ressource["id"]);
-            $item->setAttribute('href', $ressource["manifest"]);
-            $item->setAttribute('media-type', $ressource["media-type"]);
-            if (isset($ressource["properties"]) && !empty($ressource["properties"])) {
-                $item->setAttribute('properties', $ressource["properties"]);
+            $item->setAttribute('id', $resource["id"]);
+            $item->setAttribute('href', $resource["manifest"]);
+            $item->setAttribute('media-type', $resource["media-type"]);
+            if (isset($resource["properties"]) && !empty($resource["properties"])) {
+                $item->setAttribute('properties', $resource["properties"]);
             }
             $manifest->appendChild($item);
         }
@@ -186,16 +186,16 @@ class Content implements Resource
         $spine = $doc->createElement('spine');
         $spine->setAttribute('toc', 'ncx');
 
-        $spineRessources = array();
-        foreach ($ressources as $id => $ressource) {
-            if ($ressource["spine"]) {
-                $spineRessources[$ressource["spine"]] = $ressource;
+        $spineResources = array();
+        foreach ($resources as $id => $resource) {
+            if ($resource["spine"]) {
+                $spineResources[$resource["spine"]] = $resource;
             }
         }
-        ksort($spineRessources);
-        foreach ($spineRessources as $id => $ressource) {
+        ksort($spineResources);
+        foreach ($spineResources as $id => $resource) {
             $itemrefCh001 = $doc->createElement('itemref');
-            $itemrefCh001->setAttribute('idref', $ressource["id"]);
+            $itemrefCh001->setAttribute('idref', $resource["id"]);
             $spine->appendChild($itemrefCh001);
         }
 

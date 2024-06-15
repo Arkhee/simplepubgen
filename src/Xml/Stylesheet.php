@@ -34,7 +34,7 @@ class Stylesheet
     /**
      * @return string
      */
-    public function getRessourceId(): string
+    public function getResourceId(): string
     {
         return $this->getId();
     }
