@@ -121,6 +121,8 @@ class Content implements Ressource
         $description = $this->book->getDescription();
         if(!empty($description))
         {
+            $description = strip_tags($description);
+            $description = str_replace("\r\n\r\n","\r\n",$description);
             $descriptionElement = $doc->createElement('dc:description', $description);
         }
         //$creator->setAttribute('opf:role', 'aut');

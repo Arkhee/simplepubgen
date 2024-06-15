@@ -10,6 +10,7 @@ class Tools
      */
     public static function CleanHTML(string $html):string
     {
+        return htmlspecialchars_decode( htmlentities($html, ENT_QUOTES, 'UTF-8') );
         $html = str_replace("“", '&ldquo;', $html);
         $html = str_replace("”", '&rdquo;', $html);
         $html = str_replace("’", '&rsquo;', $html);
