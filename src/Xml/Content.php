@@ -118,10 +118,12 @@ class Content implements Resource
         $language = $doc->createElement('dc:language', $this->book->getLang());
 
         $author = $this->book->getAuthor();
+        $authorElement = false;
         if (!empty($author)) {
             $authorElement = $doc->createElement('dc:creator', $author);
         }
         $description = $this->book->getDescription();
+        $descriptionElement = false;
         if (!empty($description)) {
             $description = strip_tags($description);
             $description = str_replace("\r\n\r\n", "\r\n", $description);
