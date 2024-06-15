@@ -113,7 +113,16 @@ class Content implements Ressource
 
         $language = $doc->createElement('dc:language', $this->book->getLang());
 
-        //$creator = $doc->createElement('dc:creator', 'JK Rowling');
+        $author = $this->book->getAuthor();
+        if(!empty($author))
+        {
+            $creator = $doc->createElement('dc:creator', $author);
+        }
+        $description = $this->book->getDescription();
+        if(!empty($description))
+        {
+            $description = $doc->createElement('dc:description', $description);
+        }
         //$creator->setAttribute('opf:role', 'aut');
 
         /*
@@ -125,7 +134,7 @@ class Content implements Ressource
         */
         $metaCover = $doc->createElement('meta');
         $metaCover->setAttribute('name', 'cover');
-        $metaCover->setAttribute('content', $this->book->getCover()->getId());
+        $metaCover->setAttribute('content', $this->book->getCover()->getRessourceId());
 
         //$metaModified = $doc->createElement('meta', date("Y-m-d").'T'.date("H:i:s").'Z');
         //$metaModified->setAttribute('property', 'dcterms:modified');

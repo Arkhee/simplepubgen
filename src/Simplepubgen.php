@@ -8,6 +8,7 @@ use Simplepubgen\Xml\Nav;
 use Simplepubgen\Xml\Mimetype;
 use Simplepubgen\Xml\Content;
 use Simplepubgen\Xml\CoverImage;
+use Simplepubgen\Xml\RessourceImage;
 
 class Simplepubgen
 {
@@ -32,13 +33,15 @@ class Simplepubgen
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "coverimage", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>"auto"),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "externalResources", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>"")
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "externalResources", "class" => "RessourceImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>"")
     );
     /**
      * @var CoverImage $coverimage
      */
     private $coverimage = null;
     private $title="";
+    private $description = "";
+    private $author = "";
     private $id = "";
     private $lang = "";
     private $code = "";
@@ -50,7 +53,7 @@ class Simplepubgen
     private $chapters=array();
 
     /**
-     * @var CoverImage[] $externalResources
+     * @var RessourceImage[] $externalResources
      */
     private $externalResources = array();
     public function __construct($title,$lang="en-US")
@@ -71,6 +74,16 @@ class Simplepubgen
     }
 
     /**
+     * @param $id
+     * @return void
+     * In case you need a specific ID for this book
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return array
      */
     public function getRessources():array
@@ -88,6 +101,7 @@ class Simplepubgen
 
     /**
      * @return string
+     * Returns the automatically generated id for the book
      */
     public function getId()
     {
@@ -96,10 +110,50 @@ class Simplepubgen
 
     /**
      * @return Cover
+     * Get image to include in cover
      */
     public function getCover():CoverImage
     {
         return $this->coverimage;
+    }
+
+
+    /**
+     * @param string $description
+     * @return void
+     * Set description to include in epub header
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @param string $author
+     * @return void
+     * Set author to include in epub header
+     */
+    public function setAuthor(string $author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return string
+     * Get author to include in epub header
+     */
+    public function getAuthor():string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return string
+     * Get description to include in epub header
+     */
+    public function getDescription():string
+    {
+        return $this->description;
     }
 
     /**
@@ -176,7 +230,7 @@ class Simplepubgen
 
     public function addResource(string $name, string $url)
     {
-        $cover = new CoverImage($this,$this->chapters);
+        $cover = new RessourceImage($this,$this->chapters);
         $cover->setCoverImageFile($url);
         $cover->setFileName($name);
         $this->externalResources[]=$cover;
