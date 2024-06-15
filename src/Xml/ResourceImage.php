@@ -1,4 +1,5 @@
 <?php
+
 namespace Simplepubgen\Xml;
 
 use Simplepubgen\Simplepubgen;

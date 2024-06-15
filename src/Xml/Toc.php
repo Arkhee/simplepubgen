@@ -1,8 +1,11 @@
 <?php
+
 namespace Simplepubgen\Xml;
+
 use Simplepubgen\Simplepubgen;
 use Simplepubgen\Xml\Chapter;
-class Toc implements Ressource
+
+class Toc implements Resource
 {
     /**
      * @var Chapter[] $chapters
@@ -12,6 +15,7 @@ class Toc implements Ressource
      * @var Simplepubgen $book
      */
     private $book = "";
+
     public function __construct($book, $chapters)
     {
         $this->chapters = $chapters;
@@ -21,28 +25,27 @@ class Toc implements Ressource
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         return "";
     }
 
 
-    public function getMediaType():string
+    public function getMediaType(): string
     {
         return "application/x-dtbncx+xml";
     }
 
-    
-    
+
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->getId() ;
+        return $this->getId();
     }
 
-    public function getId():string
+    public function getId(): string
     {
         return "ncx";
     }
@@ -52,7 +55,7 @@ class Toc implements Ressource
         return "toc.ncx";
     }
 
-    public function getRessourceContent(): string
+    public function getResourceContent(): string
     {
         return $this->getContent();
     }
@@ -62,7 +65,7 @@ class Toc implements Ressource
      * @return string
      * @throws \DOMException
      */
-    public function getContent():string
+    public function getContent(): string
     {
         $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->preserveWhiteSpace = false;
@@ -113,14 +116,13 @@ class Toc implements Ressource
 
         // Créer l'élément navMap et ses enfants
         $navMap = $doc->createElement('navMap');
-        foreach($this->chapters as $chapter)
-        {
+        foreach ($this->chapters as $chapter) {
             $navPoint = $doc->createElement('navPoint');
             $navPoint->setAttribute('id', $chapter->getId());
             $navLabel = $doc->createElement('navLabel');
             $textLabel = $doc->createElement('text', $chapter->getTitle());
             $content = $doc->createElement('content');
-            $content->setAttribute('src', 'text/'.$chapter->getId().'.xhtml');
+            $content->setAttribute('src', 'text/' . $chapter->getId() . '.xhtml');
 
             // Ajouter les éléments au navPoint
             $navLabel->appendChild($textLabel);
@@ -137,5 +139,4 @@ class Toc implements Ressource
         // Sauvegarder le XML dans un fichier ou afficher
         return $doc->saveXML();
     }
-
 }

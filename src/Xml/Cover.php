@@ -1,10 +1,11 @@
 <?php
+
 namespace Simplepubgen\Xml;
 
 use Simplepubgen\Simplepubgen;
 use Simplepubgen\Tools;
 
-class Cover implements Ressource
+class Cover implements Resource
 {
     private $imageFile = "";
     private $id = "";
@@ -13,6 +14,7 @@ class Cover implements Ressource
      * @var Simplepubgen $book
      */
     private $book = "";
+
     public function __construct($book, $chapters)
     {
         $this->book = $book;
@@ -29,13 +31,13 @@ class Cover implements Ressource
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->id ;
+        return $this->id;
     }
 
 
-    public function getId($file=""):string
+    public function getId($file = ""): string
     {
         return "cover";
     }
@@ -43,18 +45,18 @@ class Cover implements Ressource
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         return "";
     }
 
 
-    public function getMediaType($file = ""):string
+    public function getMediaType($file = ""): string
     {
-        return (empty($file)?"application/xhtml+xml":Tools::DL_Content_type($file));
+        return (empty($file) ? "application/xhtml+xml" : Tools::DL_Content_type($file));
     }
 
-    public function getRessourceContent():string
+    public function getResourceContent(): string
     {
         return file_get_contents($this->imageFile);
     }
@@ -63,14 +65,15 @@ class Cover implements Ressource
      * @return string
      * Returns the filename of the cover image to be used in the epub
      */
-    public function getFileName():string
+    public function getFileName(): string
     {
         $infoPath = pathinfo($this->imageFile);
         $extension = $infoPath['extension'] ?? "";
-        $filename = $this->id.".".$extension;
+        $filename = $this->id . "." . $extension;
         return $filename;
     }
-    public function getContent():string
+
+    public function getContent(): string
     {
         /*
          * <?xml version="1.0" encoding="UTF-8"?>
@@ -99,11 +102,11 @@ class Cover implements Ressource
         $imp = new \DOMImplementation;
 
         // Creates a DOMDocumentType instance
-            //$dtd = $imp->createDocumentType('html', '', '');
+        //$dtd = $imp->createDocumentType('html', '', '');
         $dtd = $imp->createDocumentType(
-        'html', // Nom qualifié du document type
-        '-//W3C//DTD XHTML 1.1//EN', // Public identifier
-        'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
+            'html', // Nom qualifié du document type
+            '-//W3C//DTD XHTML 1.1//EN', // Public identifier
+            'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' // System identifier
         );
 
         $doc = $imp->createDocument("", "", $dtd);
@@ -139,7 +142,7 @@ class Cover implements Ressource
         $link = $doc->createElement('link');
         $link->setAttribute('rel', 'stylesheet');
         $link->setAttribute('type', 'text/css');
-        $link->setAttribute('href', '../'.$this->book->getCssRelativePath());
+        $link->setAttribute('href', '../' . $this->book->getCssRelativePath());
 
         // Ajouter les éléments au head
         //$head->appendChild($metaCharset);
@@ -173,7 +176,7 @@ class Cover implements Ressource
         $image = $doc->createElement('image');
         $image->setAttribute('width', '1500');
         $image->setAttribute('height', '2250');
-        $image->setAttribute('xlink:href', '../image/'.$this->book->getCover()->getFileName());
+        $image->setAttribute('xlink:href', '../image/' . $this->book->getCover()->getFileName());
 
         // Ajouter l'élément image à l'élément svg
         $svg->appendChild($image);
@@ -193,6 +196,5 @@ class Cover implements Ressource
 
         // Sauvegarder le XML dans un fichier ou afficher
         return $doc->saveXML();
-
     }
 }

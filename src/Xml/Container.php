@@ -1,12 +1,16 @@
 <?php
+
 namespace Simplepubgen\Xml;
+
 use Simplepubgen\Simplepubgen;
-class Container implements Ressource
+
+class Container implements Resource
 {
     /**
      * @var Simplepubgen $book
      */
     private $book = "";
+
     public function __construct($book, $chapters)
     {
         $this->book = $book;
@@ -16,20 +20,21 @@ class Container implements Ressource
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->getId() ;
+        return $this->getId();
     }
+
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         return "";
     }
 
 
-    public function getMediaType():string
+    public function getMediaType(): string
     {
         return "application/xhtml+xml";
     }
@@ -37,21 +42,22 @@ class Container implements Ressource
     /**
      * @return string
      */
-    public function getId():string
+    public function getId(): string
     {
         return "container";
     }
 
-    public function getFileName():string
+    public function getFileName(): string
     {
         return "container.xml";
     }
 
-    public function getRessourceContent():string
+    public function getResourceContent(): string
     {
         return $this->getContent();
     }
-    public function getContent():string
+
+    public function getContent(): string
     {
         return $this->book->getAsset($this->book::ASSET_CONTAINER);
     }

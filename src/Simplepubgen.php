@@ -1,5 +1,7 @@
 <?php
+
 namespace Simplepubgen;
+
 use Simplepubgen\Tools;
 use Simplepubgen\Xml\Chapter;
 use Simplepubgen\Xml\Cover;
@@ -22,24 +24,24 @@ class Simplepubgen
     const LOCATION_CONTENT_IMAGE = "image/";
 
     const STATIC_RESSOURCES_LIST = array(
-        array("path" => "", "file"=>"mimetype", "class" => "Mimetype" , "manifest"=> false, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"cover.xhtml", "class" => "Cover", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>-1),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_CSS, "file"=>self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest"=>self::LOCATION_CONTENT_CSS, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"nav.xhtml", "class" => "Nav", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"toc.ncx", "class" => "Toc", "manifest"=>"", "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_META, "file"=>"container.xml", "class" => "Container", "manifest"=>false, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT, "file"=>"content.opf", "class" => "Content", "manifest"=>"", "spine"=>false)
+        array("path" => "", "file" => "mimetype", "class" => "Mimetype", "manifest" => false, "spine" => false),
+        array("path" => self::LOCATION_CONTENT_ROOT . self::LOCATION_CONTENT_TEXT, "file" => "cover.xhtml", "class" => "Cover", "manifest" => self::LOCATION_CONTENT_TEXT, "spine" => -1),
+        array("path" => self::LOCATION_CONTENT_ROOT . self::LOCATION_CONTENT_CSS, "file" => self::ASSET_STYLESHEET, "class" => "Stylesheet", "manifest" => self::LOCATION_CONTENT_CSS, "spine" => false),
+        array("path" => self::LOCATION_CONTENT_ROOT, "file" => "nav.xhtml", "class" => "Nav", "manifest" => "", "spine" => false),
+        array("path" => self::LOCATION_CONTENT_ROOT, "file" => "toc.ncx", "class" => "Toc", "manifest" => "", "spine" => false),
+        array("path" => self::LOCATION_CONTENT_META, "file" => "container.xml", "class" => "Container", "manifest" => false, "spine" => false),
+        array("path" => self::LOCATION_CONTENT_ROOT, "file" => "content.opf", "class" => "Content", "manifest" => "", "spine" => false)
     );
     const DYNAMIC_RESSOURCES_LIST = array(
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "coverimage", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>"auto"),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "externalResources", "class" => "ResourceImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>"")
+        array("path" => self::LOCATION_CONTENT_ROOT . self::LOCATION_CONTENT_IMAGE, "file" => "", "data" => "coverimage", "class" => "CoverImage", "manifest" => self::LOCATION_CONTENT_IMAGE, "spine" => false),
+        array("path" => self::LOCATION_CONTENT_ROOT . self::LOCATION_CONTENT_TEXT, "file" => "", "data" => "chapters", "class" => "Chapter", "manifest" => self::LOCATION_CONTENT_TEXT, "spine" => "auto"),
+        array("path" => self::LOCATION_CONTENT_ROOT . self::LOCATION_CONTENT_IMAGE, "file" => "", "data" => "externalResources", "class" => "ResourceImage", "manifest" => self::LOCATION_CONTENT_IMAGE, "spine" => "")
     );
     /**
      * @var CoverImage $coverimage
      */
     private $coverimage = null;
-    private $title="";
+    private $title = "";
     private $description = "";
     private $author = "";
     private $id = "";
@@ -50,25 +52,25 @@ class Simplepubgen
     /**
      * @var Chapter[] $chapters
      */
-    private $chapters=array();
+    private $chapters = array();
 
     /**
      * @var ResourceImage[] $externalResources
      */
     private $externalResources = array();
-    public function __construct($title,$lang="en-US")
+
+    public function __construct($title, $lang = "en-US")
     {
         $this->title = $title;
         $this->id = "book_" . md5($title);
         $this->code = Tools::Text2Code($title);
         $this->lang = $lang;
-        $this->coverimage=new CoverImage($this, $this->chapters);
+        $this->coverimage = new CoverImage($this, $this->chapters);
     }
 
     public function __destruct()
     {
-        if(file_exists($this->coverTmpFile))
-        {
+        if (file_exists($this->coverTmpFile)) {
             unlink($this->coverTmpFile);
         }
     }
@@ -86,7 +88,7 @@ class Simplepubgen
     /**
      * @return array
      */
-    public function getRessources():array
+    public function getRessources(): array
     {
         return $this->ressources;
     }
@@ -94,7 +96,7 @@ class Simplepubgen
     /**
      * @return string
      */
-    public function getCode():string
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -112,7 +114,7 @@ class Simplepubgen
      * @return Cover
      * Get image to include in cover
      */
-    public function getCover():CoverImage
+    public function getCover(): CoverImage
     {
         return $this->coverimage;
     }
@@ -142,7 +144,7 @@ class Simplepubgen
      * @return string
      * Get author to include in epub header
      */
-    public function getAuthor():string
+    public function getAuthor(): string
     {
         return $this->author;
     }
@@ -151,7 +153,7 @@ class Simplepubgen
      * @return string
      * Get description to include in epub header
      */
-    public function getDescription():string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -160,21 +162,18 @@ class Simplepubgen
      * @param string $imgFile
      * @return bool
      */
-    public function setCover(string $imgFile):bool
+    public function setCover(string $imgFile): bool
     {
-        if(!file_exists($imgFile) && !empty($imgFile))
-        {
+        if (!file_exists($imgFile) && !empty($imgFile)) {
             $pathinfo = pathinfo($imgFile);
-            if(isset($pathinfo["extension"]))
-            {
-                $tmpFile = sys_get_temp_dir()."/".uniqid("cover_").".".$pathinfo["extension"];
-                file_put_contents($tmpFile,file_get_contents($imgFile));
+            if (isset($pathinfo["extension"])) {
+                $tmpFile = sys_get_temp_dir() . "/" . uniqid("cover_") . "." . $pathinfo["extension"];
+                file_put_contents($tmpFile, file_get_contents($imgFile));
                 $imgFile = $tmpFile;
                 $this->coverTmpFile = $imgFile;
             }
         }
-        if(file_exists($imgFile) && is_readable($imgFile))
-        {
+        if (file_exists($imgFile) && is_readable($imgFile)) {
             $this->coverimage->setCoverImageFile($imgFile);
             return true;
         }
@@ -186,30 +185,26 @@ class Simplepubgen
      * @param string $destFile
      * @return bool
      */
-    public function generateEpub(string $outputFile="", string $destFile=""):bool
+    public function generateEpub(string $outputFile = "", string $destFile = ""): bool
     {
-        if(empty($outputFile))
-        {
-            $outputFile = Tools::Text2Code($this->title).".epub";
-            if(empty($outputFile))
-            {
+        if (empty($outputFile)) {
+            $outputFile = Tools::Text2Code($this->title) . ".epub";
+            if (empty($outputFile)) {
                 $outputFile = "book.epub";
             }
         }
-        $tmpFile = sys_get_temp_dir()."/".uniqid("epub_").".epub";
+        $tmpFile = sys_get_temp_dir() . "/" . uniqid("epub_") . ".epub";
         $this->createEpub($tmpFile);
-        if(!empty($destFile))
-        {
-            if(file_exists($destFile) && !is_writable($destFile))
-            {
+        if (!empty($destFile)) {
+            if (file_exists($destFile) && !is_writable($destFile)) {
                 return false;
             }
-            if(file_exists($destFile)) unlink($destFile);
+            if (file_exists($destFile)) {
+                unlink($destFile);
+            }
             rename($tmpFile, $destFile);
-        }
-        else
-        {
-            Tools::DL_DownloadProgressive($outputFile,$tmpFile);
+        } else {
+            Tools::DL_DownloadProgressive($outputFile, $tmpFile);
             unlink($tmpFile);
             die();
         }
@@ -222,24 +217,24 @@ class Simplepubgen
      * @return void
      * Add a chapter to the book providing a title and a content
      */
-    public function addChapter(string $title,string $content)
+    public function addChapter(string $title, string $content)
     {
-        $this->chapters[] = new Chapter($this,$title,$content);
+        $this->chapters[] = new Chapter($this, $title, $content);
     }
 
 
     public function addResource(string $name, string $url)
     {
-        $cover = new ResourceImage($this,$this->chapters);
+        $cover = new ResourceImage($this, $this->chapters);
         $cover->setCoverImageFile($url);
         $cover->setFileName($name);
-        $this->externalResources[]=$cover;
+        $this->externalResources[] = $cover;
     }
 
     /**
      * @return string
      */
-    public function getLang():string
+    public function getLang(): string
     {
         return $this->lang;
     }
@@ -248,99 +243,88 @@ class Simplepubgen
     /**
      * @return string
      */
-    public function getBookTitle():string
+    public function getBookTitle(): string
     {
         return $this->title;
     }
 
     public function getAsset($asset)
     {
-        return file_get_contents(__DIR__."/assets/".$asset);
+        return file_get_contents(__DIR__ . "/assets/" . $asset);
     }
 
     /**
      * @return string
      */
-    public function getCssRelativePath():string
+    public function getCssRelativePath(): string
     {
-        return self::LOCATION_CONTENT_CSS.self::ASSET_STYLESHEET;
+        return self::LOCATION_CONTENT_CSS . self::ASSET_STYLESHEET;
     }
 
     private function prepareRessources()
     {
         $spineIndex = 1;
-        foreach(self::DYNAMIC_RESSOURCES_LIST as $ressource)
-        {
+        foreach (self::DYNAMIC_RESSOURCES_LIST as $ressource) {
             $property = $ressource["data"];
             $curProperty = $this->$property;
-            if(!is_array($curProperty))
-            {
+            if (!is_array($curProperty)) {
                 $curProperty = array($curProperty);
             }
-            foreach($curProperty as $data)
-            {
-                if($ressource["spine"]=="auto")
-                {
+            foreach ($curProperty as $data) {
+                if ($ressource["spine"] == "auto") {
                     $currentSprineIndex = $spineIndex++;
-                }
-                else
-                {
+                } else {
                     $currentSprineIndex = $ressource["spine"];
                 }
-                $this->ressources[$ressource["path"].$data->getFileName()] =
-                array(
-                    "id" => $data->getRessourceId(),
-                    "content"=>$data->getRessourceContent(),
-                    "spine"=>$currentSprineIndex,
-                    "path"=>$ressource["path"].$data->getFileName(),
-                    "media-type"=>$data->getMediaType($data->getFileName()),
-                    "properties"=>$data->getProperties(),
-                    "manifest"=>(($ressource["manifest"]!="")?($ressource["manifest"].$data->getFileName()):null)
-                );
+                $this->ressources[$ressource["path"] . $data->getFileName()] =
+                    array(
+                        "id" => $data->getRessourceId(),
+                        "content" => $data->getRessourceContent(),
+                        "spine" => $currentSprineIndex,
+                        "path" => $ressource["path"] . $data->getFileName(),
+                        "media-type" => $data->getMediaType($data->getFileName()),
+                        "properties" => $data->getProperties(),
+                        "manifest" => (($ressource["manifest"] != "") ? ($ressource["manifest"] . $data->getFileName()) : null)
+                    );
             }
         }
-        foreach(self::STATIC_RESSOURCES_LIST as $ressource)
-        {
-            if($ressource["spine"]=="auto")
-            {
+        foreach (self::STATIC_RESSOURCES_LIST as $ressource) {
+            if ($ressource["spine"] == "auto") {
                 $currentSprineIndex = $spineIndex++;
-            }
-            else
-            {
+            } else {
                 $currentSprineIndex = $ressource["spine"];
             }
             $class = $ressource["class"];
-            if(empty($class)) continue;
-            if(!class_exists($class))
-            {
-                $class = "Simplepubgen\\Xml\\".$class;
-                if(!class_exists($class))
-                {
+            if (empty($class)) {
+                continue;
+            }
+            if (!class_exists($class)) {
+                $class = "Simplepubgen\\Xml\\" . $class;
+                if (!class_exists($class)) {
                     continue;
                 }
             }
             $object = new $class($this, $this->chapters);
-            $this->ressources[$ressource["path"].$ressource["file"]] =
+            $this->ressources[$ressource["path"] . $ressource["file"]] =
                 array(
                     "id" => $object->getId(),
-                    "content"=>$object->getContent(),
-                    "spine"=>$currentSprineIndex,
-                    "path"=>$ressource["path"].$ressource["file"],
-                    "media-type"=>$object->getMediaType(),
-                    "properties"=>$object->getProperties(),
-                    "manifest"=>(($ressource["manifest"]!==false)?($ressource["manifest"].$ressource["file"]):null)
+                    "content" => $object->getContent(),
+                    "spine" => $currentSprineIndex,
+                    "path" => $ressource["path"] . $ressource["file"],
+                    "media-type" => $object->getMediaType(),
+                    "properties" => $object->getProperties(),
+                    "manifest" => (($ressource["manifest"] !== false) ? ($ressource["manifest"] . $ressource["file"]) : null)
                 );
         }
-
     }
+
     private function createEpub($tmpFile)
     {
         $this->prepareRessources();
         $zip = new \ZipArchive;
-        if($zip -> open($tmpFile, \ZipArchive::CREATE ) === TRUE) {
-            foreach($this->ressources as $path => $content)
-            {
-                $zip->addFromString($path,$content["content"]);
+        if ($zip->open($tmpFile, \ZipArchive::CREATE) === true) {
+            foreach ($this->ressources as $path => $content) {
+                $zip->addFromString($path, $content["content"]);
             }
             /*
             $zip->addFromString("mimetype","application/epub+zip");
@@ -359,5 +343,4 @@ class Simplepubgen
             $zip->close();
         }
     }
-
 }

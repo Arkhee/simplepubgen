@@ -1,27 +1,31 @@
 <?php
+
 namespace Simplepubgen\Xml;
+
 use Simplepubgen\Simplepubgen;
 
-class Content implements Ressource
+class Content implements Resource
 {
     /**
      * @var Simplepubgen $book
      */
     private $book;
+
     public function __construct($book, $chapters)
     {
         $this->book = $book;
     }
+
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         return "";
     }
 
 
-    public function getMediaType():string
+    public function getMediaType(): string
     {
         return "application/xhtml+xml";
     }
@@ -29,27 +33,27 @@ class Content implements Ressource
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->getId() ;
+        return $this->getId();
     }
 
-    public function getId():string
+    public function getId(): string
     {
         return $this->book::ASSET_CONTENT;
     }
 
-    public function getFileName():string
+    public function getFileName(): string
     {
         return "content.opf";
     }
 
-    public function getRessourceContent():string
+    public function getResourceContent(): string
     {
         return $this->getContent();
     }
 
-    public function getContent():string
+    public function getContent(): string
     {
         /*
 <?xml version="1.0" encoding="UTF-8"?>
@@ -65,7 +69,7 @@ class Content implements Ressource
     <meta property="dcterms:modified">2020-06-07T22:40:17Z</meta>
   </metadata>
   <manifest>
-	<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
     <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav" />
     <item id="stylesheet1" href="styles/stylesheet.css" media-type="text/css" />
     <item id="cover_xhtml" href="text/cover.xhtml" media-type="application/xhtml+xml" properties="svg" />
@@ -75,7 +79,7 @@ class Content implements Ressource
   </manifest>
   <spine toc="ncx">
     <itemref idref="cover_xhtml" />
-	<itemref idref="ch001_xhtml" linear="yes"  />
+    <itemref idref="ch001_xhtml" linear="yes"  />
   </spine>
   <guide>
     <reference type="toc" title="The Ickabog" href="nav.xhtml" />
@@ -108,21 +112,19 @@ class Content implements Ressource
         $identifier = $doc->createElement('dc:identifier', /* 'urn:uuid:'. */ $this->book->getId());
         $identifier->setAttribute('id', $this->book->getCode());
 
-        $date = $doc->createElement('dc:date', date("Y-m-d").'T07:00:00+00:00');
+        $date = $doc->createElement('dc:date', date("Y-m-d") . 'T07:00:00+00:00');
         $date->setAttribute('id', 'epub-date');
 
         $language = $doc->createElement('dc:language', $this->book->getLang());
 
         $author = $this->book->getAuthor();
-        if(!empty($author))
-        {
+        if (!empty($author)) {
             $authorElement = $doc->createElement('dc:creator', $author);
         }
         $description = $this->book->getDescription();
-        if(!empty($description))
-        {
+        if (!empty($description)) {
             $description = strip_tags($description);
-            $description = str_replace("\r\n\r\n","\r\n",$description);
+            $description = str_replace("\r\n\r\n", "\r\n", $description);
             $descriptionElement = $doc->createElement('dc:description', $description);
         }
         //$creator->setAttribute('opf:role', 'aut');
@@ -136,7 +138,7 @@ class Content implements Ressource
         */
         $metaCover = $doc->createElement('meta');
         $metaCover->setAttribute('name', 'cover');
-        $metaCover->setAttribute('content', $this->book->getCover()->getRessourceId());
+        $metaCover->setAttribute('content', $this->book->getCover()->getResourceId());
 
         //$metaModified = $doc->createElement('meta', date("Y-m-d").'T'.date("H:i:s").'Z');
         //$metaModified->setAttribute('property', 'dcterms:modified');
@@ -146,8 +148,12 @@ class Content implements Ressource
         $metadata->appendChild($identifier);
         $metadata->appendChild($date);
         $metadata->appendChild($language);
-        if($authorElement) $metadata->appendChild($authorElement);
-        if($descriptionElement) $metadata->appendChild($descriptionElement);
+        if ($authorElement) {
+            $metadata->appendChild($authorElement);
+        }
+        if ($descriptionElement) {
+            $metadata->appendChild($descriptionElement);
+        }
         //$metadata->appendChild($metaRole);
         $metadata->appendChild($metaCover);
         //$metadata->appendChild($metaModified);
@@ -159,18 +165,15 @@ class Content implements Ressource
         $manifest = $doc->createElement('manifest');
 
         $ressources = $this->book->getRessources();
-        foreach($ressources as $id => $ressource)
-        {
-            if(!isset($ressource["manifest"]) || ($ressource["manifest"])===false)
-            {
+        foreach ($ressources as $id => $ressource) {
+            if (!isset($ressource["manifest"]) || ($ressource["manifest"]) === false) {
                 continue;
             }
             $item = $doc->createElement('item');
             $item->setAttribute('id', $ressource["id"]);
             $item->setAttribute('href', $ressource["manifest"]);
             $item->setAttribute('media-type', $ressource["media-type"]);
-            if(isset($ressource["properties"]) && !empty($ressource["properties"]))
-            {
+            if (isset($ressource["properties"]) && !empty($ressource["properties"])) {
                 $item->setAttribute('properties', $ressource["properties"]);
             }
             $manifest->appendChild($item);
@@ -184,15 +187,13 @@ class Content implements Ressource
         $spine->setAttribute('toc', 'ncx');
 
         $spineRessources = array();
-        foreach($ressources as $id => $ressource)
-        {
-            if($ressource["spine"])
-            {
+        foreach ($ressources as $id => $ressource) {
+            if ($ressource["spine"]) {
                 $spineRessources[$ressource["spine"]] = $ressource;
             }
         }
         ksort($spineRessources);
-        foreach($spineRessources as $id => $ressource) {
+        foreach ($spineRessources as $id => $ressource) {
             $itemrefCh001 = $doc->createElement('itemref');
             $itemrefCh001->setAttribute('idref', $ressource["id"]);
             $spine->appendChild($itemrefCh001);
@@ -205,7 +206,7 @@ class Content implements Ressource
         $guide = $doc->createElement('guide');
 
         $referenceToc = $doc->createElement('reference');
-        $referenceToc->setAttribute('type', 'toc')  ;
+        $referenceToc->setAttribute('type', 'toc');
         $referenceToc->setAttribute('title', "Table des matières");
         $referenceToc->setAttribute('href', 'nav.xhtml');
 

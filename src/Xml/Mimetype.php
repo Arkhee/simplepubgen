@@ -1,7 +1,10 @@
 <?php
+
 namespace Simplepubgen\Xml;
+
 use Simplepubgen\Simplepubgen;
-class Mimetype implements Ressource
+
+class Mimetype implements Resource
 {
     public function __construct($book, $chapters)
     {
@@ -11,20 +14,21 @@ class Mimetype implements Ressource
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->getId() ;
+        return $this->getId();
     }
+
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         return "";
     }
 
 
-    public function getMediaType():string
+    public function getMediaType(): string
     {
         return "application/xhtml+xml";
     }
@@ -32,21 +36,22 @@ class Mimetype implements Ressource
     /**
      * @return string
      */
-    public function getId():string
+    public function getId(): string
     {
         return "mimetype";
     }
 
-    public function getFileName():string
+    public function getFileName(): string
     {
         return "mimetype";
     }
 
-    public function getRessourceContent():string
+    public function getResourceContent(): string
     {
         return $this->getContent();
     }
-    public function getContent():string
+
+    public function getContent(): string
     {
         return "application/epub+zip";
     }

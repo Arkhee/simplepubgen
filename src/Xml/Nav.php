@@ -1,7 +1,10 @@
 <?php
+
 namespace Simplepubgen\Xml;
+
 use Simplepubgen\Simplepubgen;
-class Nav implements Ressource
+
+class Nav implements Resource
 {
     /**
      * @var Chapter[] $chapters
@@ -11,6 +14,7 @@ class Nav implements Ressource
      * @var Simplepubgen $book
      */
     private $book = null;
+
     public function __construct($book, array $chapters)
     {
         $this->chapters = $chapters;
@@ -18,7 +22,7 @@ class Nav implements Ressource
     }
 
 
-    public function getMediaType():string
+    public function getMediaType(): string
     {
         return "application/xhtml+xml";
     }
@@ -26,30 +30,31 @@ class Nav implements Ressource
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         //return "nav";
         return "";
     }
+
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->getId() ;
+        return $this->getId();
     }
 
-    public function getId():string
+    public function getId(): string
     {
         return "nav";
     }
 
-    public function getFileName():string
+    public function getFileName(): string
     {
         return "";
     }
 
-    public function getRessourceContent():string
+    public function getResourceContent(): string
     {
         return $this->getContent();
     }
@@ -57,29 +62,29 @@ class Nav implements Ressource
     /**
      * @return string
      */
-    public function getContent():string
+    public function getContent(): string
     {
         /*
          *
          * <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en-US">
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="generator" content="pandoc"/>
-		<title>The Ickabog</title>
-		<link rel="stylesheet" type="text/css" href="styles/stylesheet1.css"/>
-	</head>
-	<body>
-		<nav epub:type="toc" id="toc">
-			<h1 id="toc-title">The Ickabog</h1>
-			<ol class="toc">
-				<li id="toc-li-1">
-					<a href="text/cover.xhtml">The Ickabog</a>
-				</li>
-			</ol>
-		</nav>
-	</body>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="generator" content="pandoc"/>
+        <title>The Ickabog</title>
+        <link rel="stylesheet" type="text/css" href="styles/stylesheet1.css"/>
+    </head>
+    <body>
+        <nav epub:type="toc" id="toc">
+            <h1 id="toc-title">The Ickabog</h1>
+            <ol class="toc">
+                <li id="toc-li-1">
+                    <a href="text/cover.xhtml">The Ickabog</a>
+                </li>
+            </ol>
+        </nav>
+    </body>
 </html>
 
          *
@@ -100,7 +105,7 @@ class Nav implements Ressource
         $html = $doc->createElement('html');
         $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
         $html->setAttribute('xmlns:epub', 'http://www.idpf.org/2007/ops');
-        $html->setAttribute('xml:lang', $this->book->getLang() );
+        $html->setAttribute('xml:lang', $this->book->getLang());
 
         // Ajouter l'élément html à la document
         $doc->appendChild($html);
@@ -116,7 +121,7 @@ class Nav implements Ressource
         $link = $doc->createElement('link');
         $link->setAttribute('rel', 'stylesheet');
         $link->setAttribute('type', 'text/css');
-        $link->setAttribute('href', $this->book::LOCATION_CONTENT_CSS.$this->book::ASSET_STYLESHEET);
+        $link->setAttribute('href', $this->book::LOCATION_CONTENT_CSS . $this->book::ASSET_STYLESHEET);
 
         // Ajouter les éléments au head
         //$head->appendChild($metaCharset);
@@ -136,12 +141,11 @@ class Nav implements Ressource
         $h1->setAttribute('id', 'toc-title');
         $ol = $doc->createElement('ol');
         $ol->setAttribute('class', 'toc');
-        foreach($this->chapters as $chapter)
-        {
+        foreach ($this->chapters as $chapter) {
             $li = $doc->createElement('li');
             $li->setAttribute('id', $chapter->getId());
             $a = $doc->createElement('a', $chapter->getTitle());
-            $a->setAttribute('href', 'text/'.$chapter->getId().'.xhtml');
+            $a->setAttribute('href', 'text/' . $chapter->getId() . '.xhtml');
 
             // Ajouter les éléments au li
             $li->appendChild($a);
@@ -163,5 +167,4 @@ class Nav implements Ressource
         // Sauvegarder le XML dans un fichier ou afficher
         return $doc->saveXML();
     }
-
 }

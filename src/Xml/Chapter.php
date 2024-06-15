@@ -1,48 +1,53 @@
 <?php
+
 namespace Simplepubgen\Xml;
+
 use Simplepubgen\Simplepubgen;
 use Simplepubgen\Tools;
-class Chapter implements Ressource
+
+class Chapter implements Resource
 {
-    private $title = "" ;
-    private $content = "" ;
-    private $id = "" ;
+    private $title = "";
+    private $content = "";
+    private $id = "";
     /**
      * @var Simplepubgen $book
      */
-    private $book = null ;
-    public function __construct($book,$title,$content)
+    private $book = null;
+
+    public function __construct($book, $title, $content)
     {
-        $this->book = $book ;
-        $this->title = $title ;
-        $this->content = $content ;
-        $this->id = uniqid("chap_") ;
+        $this->book = $book;
+        $this->title = $title;
+        $this->content = $content;
+        $this->id = uniqid("chap_");
     }
 
     /**
      * @return string
      */
-    public function getTitle():string
+    public function getTitle(): string
     {
-        return $this->title ;
+        return $this->title;
     }
 
     /**
      * @return string
      */
-    public function getId():string
+    public function getId(): string
     {
-        return $this->id ;
+        return $this->id;
     }
 
-    public function getMediaType():string
+    public function getMediaType(): string
     {
         return "application/xhtml+xml";
     }
+
     /**
      * @return string
      */
-    public function getProperties():string
+    public function getProperties(): string
     {
         return "";
     }
@@ -51,24 +56,24 @@ class Chapter implements Ressource
     /**
      * @return string
      */
-    public function getRessourceId():string
+    public function getResourceId(): string
     {
-        return $this->getId() ;
+        return $this->getId();
     }
 
     /**
      * @return string
      */
-    public function getFileName():string
+    public function getFileName(): string
     {
-        return $this->getId().".xhtml";
+        return $this->getId() . ".xhtml";
     }
 
     /**
      * @return string
      * @throws \DOMException
      */
-    public function getRessourceContent():string
+    public function getResourceContent(): string
     {
         return $this->getContent();
     }
@@ -77,7 +82,7 @@ class Chapter implements Ressource
      * @return string
      * @throws \DOMException
      */
-    public function getContent():string
+    public function getContent(): string
     {
         /*
          * Generate an xmlstring for the chapter using this template :
@@ -141,7 +146,7 @@ class Chapter implements Ressource
         $link = $doc->createElement('link');
         $link->setAttribute('rel', 'stylesheet');
         $link->setAttribute('type', 'text/css');
-        $link->setAttribute('href', "../".$this->book::LOCATION_CONTENT_CSS.$this->book::ASSET_STYLESHEET);
+        $link->setAttribute('href', "../" . $this->book::LOCATION_CONTENT_CSS . $this->book::ASSET_STYLESHEET);
 
         // Ajouter les éléments au head
         //$head->appendChild($metaCharset);
@@ -168,7 +173,6 @@ class Chapter implements Ressource
 
         $insideBody = $tpl->getElementsByTagName('body')->item(0);
         if ($insideBody !== null) {
-
             // Importer le contenu du body dans le nouveau document
             foreach ($insideBody->childNodes as $child) {
                 $importedNode = $doc->importNode($child, true);
