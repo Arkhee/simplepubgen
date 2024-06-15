@@ -116,12 +116,12 @@ class Content implements Ressource
         $author = $this->book->getAuthor();
         if(!empty($author))
         {
-            $creator = $doc->createElement('dc:creator', $author);
+            $authorElement = $doc->createElement('dc:creator', $author);
         }
         $description = $this->book->getDescription();
         if(!empty($description))
         {
-            $description = $doc->createElement('dc:description', $description);
+            $descriptionElement = $doc->createElement('dc:description', $description);
         }
         //$creator->setAttribute('opf:role', 'aut');
 
@@ -144,7 +144,8 @@ class Content implements Ressource
         $metadata->appendChild($identifier);
         $metadata->appendChild($date);
         $metadata->appendChild($language);
-        //$metadata->appendChild($creator);
+        if($authorElement) $metadata->appendChild($authorElement);
+        if($descriptionElement) $metadata->appendChild($descriptionElement);
         //$metadata->appendChild($metaRole);
         $metadata->appendChild($metaCover);
         //$metadata->appendChild($metaModified);
