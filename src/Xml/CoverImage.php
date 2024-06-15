@@ -8,7 +8,7 @@ class CoverImage implements Ressource
 {
     private $imageFile = "";
     private $imageFileName = "";
-    private $id = "";
+    protected $id = "";
     private $lang = "";
     /**
      * @var Simplepubgen $book

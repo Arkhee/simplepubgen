@@ -8,7 +8,7 @@ use Simplepubgen\Xml\Nav;
 use Simplepubgen\Xml\Mimetype;
 use Simplepubgen\Xml\Content;
 use Simplepubgen\Xml\CoverImage;
-use Simplepubgen\Xml\RessourceImage;
+use Simplepubgen\Xml\ResourceImage;
 
 class Simplepubgen
 {
@@ -33,7 +33,7 @@ class Simplepubgen
     const DYNAMIC_RESSOURCES_LIST = array(
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "coverimage", "class" => "CoverImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>false),
         array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_TEXT, "file"=>"", "data" => "chapters", "class" => "Chapter", "manifest"=>self::LOCATION_CONTENT_TEXT, "spine"=>"auto"),
-        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "externalResources", "class" => "RessourceImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>"")
+        array("path" => self::LOCATION_CONTENT_ROOT.self::LOCATION_CONTENT_IMAGE, "file"=>"", "data" => "externalResources", "class" => "ResourceImage", "manifest"=>self::LOCATION_CONTENT_IMAGE, "spine"=>"")
     );
     /**
      * @var CoverImage $coverimage
@@ -53,7 +53,7 @@ class Simplepubgen
     private $chapters=array();
 
     /**
-     * @var RessourceImage[] $externalResources
+     * @var ResourceImage[] $externalResources
      */
     private $externalResources = array();
     public function __construct($title,$lang="en-US")
@@ -230,7 +230,7 @@ class Simplepubgen
 
     public function addResource(string $name, string $url)
     {
-        $cover = new RessourceImage($this,$this->chapters);
+        $cover = new ResourceImage($this,$this->chapters);
         $cover->setCoverImageFile($url);
         $cover->setFileName($name);
         $this->externalResources[]=$cover;

@@ -5,7 +5,7 @@ use Simplepubgen\Simplepubgen;
 use Simplepubgen\Xml\CoverImage;
 use Simplepubgen\Tools;
 
-class RessourceImage extends CoverImage
+class ResourceImage extends CoverImage
 {
     public function __construct($book, $chapters)
     {
