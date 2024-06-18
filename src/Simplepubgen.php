@@ -63,7 +63,7 @@ class Simplepubgen
     {
         $this->title = $title;
         $this->id = "book_" . md5($title);
-        $this->code = Tools::Text2Code($title);
+        $this->code = Tools::text2Code($title);
         $this->lang = $lang;
         $this->coverimage = new CoverImage($this, $this->chapters);
     }
@@ -188,7 +188,7 @@ class Simplepubgen
     public function generateEpub(string $outputFile = "", string $destFile = ""): bool
     {
         if (empty($outputFile)) {
-            $outputFile = Tools::Text2Code($this->title) . ".epub";
+            $outputFile = Tools::text2Code($this->title) . ".epub";
             if (empty($outputFile)) {
                 $outputFile = "book.epub";
             }
@@ -204,7 +204,7 @@ class Simplepubgen
             }
             rename($tmpFile, $destFile);
         } else {
-            Tools::DL_DownloadProgressive($outputFile, $tmpFile);
+            Tools::dlDownloadProgressive($outputFile, $tmpFile);
             unlink($tmpFile);
             die();
         }

@@ -53,7 +53,7 @@ class Cover implements Resource
 
     public function getMediaType($file = ""): string
     {
-        return (empty($file) ? "application/xhtml+xml" : Tools::DL_Content_type($file));
+        return (empty($file) ? "application/xhtml+xml" : Tools::dlContentType($file));
     }
 
     public function getResourceContent(): string

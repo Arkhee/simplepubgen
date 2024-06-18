@@ -168,7 +168,7 @@ class Chapter implements Resource
 
         libxml_use_internal_errors(true);
         $tpl = new \DOMDocument;
-        $this->content = Tools::CleanHtml($this->content);
+        $this->content = Tools::cleanHTML($this->content);
         $tpl->loadHtml($this->content);
 
         $insideBody = $tpl->getElementsByTagName('body')->item(0);
